@@ -22,11 +22,14 @@ int precedence(char op) {
 // Works fine except for spacing issues need to fix those. ---------------------
 // Spacee issues fixed need to fix case 3 core dumped error.    
 string InfixToPostfix(string instr) {
+    if(instr.compare("") == 0) {
+        return "";
+    }
     string postFix = "";
     stack<char> operators;
 
-    // regex r("\\s");
-    // instr = regex_replace(instr, r, "");
+    regex r("\\s");
+    instr = regex_replace(instr, r, "");
 
     for (int i = 0; i < instr.length(); i++) {
         if (instr[i] == '%' || instr[i] == '/' || instr[i] == '*' || instr[i] == '+' || instr[i] == '-' || instr[i] == '^') {
@@ -40,7 +43,7 @@ string InfixToPostfix(string instr) {
         }
 
         else if (instr[i] == '(') {
-            operators.push(instr[i]);
+            operators.push(instr[i]);   
         }
         else if (instr[i] == ')') {
             while ((!operators.empty() && operators.top() != '(')) {
@@ -75,7 +78,30 @@ string InfixToPostfix(string instr) {
 }
 
 string PostfixToInfix(string token){
-    return token;
+    if(token.compare("") == 0) {
+        return "";
+    }
+    string infix = "";
+    stack<string> operators;
+
+    regex r("\\s");
+    token = regex_replace(token, r, "");
+
+    for (int i = 0; i < token.length(); i++) {
+        // case when its not alphabet but its a opreator
+        if(!isalnum(token[i])) {
+            string b = operators.top();;
+            operators.pop();
+            string a = operators.top();
+            operators.pop();
+            operators.push("(" + a + " " + token[i] + " " + b + ")");
+        }
+        else{
+            string operand(1, token[i]); // Convert char to string
+            operators.push(operand); // this will push the letters into the stack
+        }
+    }
+    return operators.top();
 }
 
 int main(int argc, char *argv [])
