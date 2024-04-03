@@ -73,11 +73,7 @@ string InfixToPostfix(string instr) {
     postFix += " ";
     return postFix;
 }
-bool isOperand(char x)
-{
-   return (x >= 'a' && x <= 'z') ||
-          (x >= 'A' && x <= 'Z');
-}
+
 string PostfixToInfix(string token){
     stack<string> s;
  
