@@ -75,29 +75,7 @@ string InfixToPostfix(string instr) {
 }
 
 string PostfixToInfix(string token){
-    stack<string> s;
- 
-    for (int i=0; token[i]!='\0'; i++)
-    {
-        // Push operands
-        if (isOperand(token[i]))
-        {
-           string op(1, token[i]);
-           s.push(op);
-        }
- 
-
-        else
-        {
-            string op1 = s.top();
-            s.pop();
-            string op2 = s.top();
-            s.pop();
-            s.push("(" + op2 + token[i] +
-                   op1 + ")");
-        }
-    }
-    return s.top();
+    return token;
 }
 
 int main(int argc, char *argv [])
